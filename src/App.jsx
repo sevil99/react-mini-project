@@ -1,8 +1,10 @@
 import { useState } from "react";
-import MovieList from "./components/MovieList";
-import MovieForm from "./components/MovieForm";
-import SearchBar from "./components/SearchBar";
-import "./styles.css";
+import { Routes, Route } from "react-router-dom";
+
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+import MoviesPage from "./pages/MoviesPage";
+import ApiMoviesPage from "./pages/ApiMoviesPage";
 
 function App() {
   const [movies, setMovies] = useState([
@@ -12,45 +14,45 @@ function App() {
     { id: 4, title: "Волк с Уолл-стрит", genre: "Криминал", watched: true },
   ]);
 
-  const [search, setSearch] = useState("");
-
-  // добавление
   function addMovie(movie) {
     setMovies([...movies, movie]);
   }
 
-  // удаление
   function deleteMovie(id) {
-    setMovies(movies.filter((m) => m.id !== id));
+    setMovies(movies.filter((movie) => movie.id !== id));
   }
 
-  // изменение (toggle)
   function toggleMovie(id) {
     setMovies(
-      movies.map((m) =>
-        m.id === id ? { ...m, watched: !m.watched } : m
+      movies.map((movie) =>
+        movie.id === id
+          ? { ...movie, watched: !movie.watched }
+          : movie
       )
     );
   }
 
-  // фильтрация
-  const filteredMovies = movies.filter((m) =>
-    m.title.toLowerCase().includes(search.toLowerCase())
-  );
-
   return (
     <div className="app">
-      <h1>Список фильмов</h1>
+      <Navbar />
 
-      <SearchBar search={search} setSearch={setSearch} />
+      <Routes>
+        <Route path="/" element={<Home />} />
 
-      <MovieForm onAdd={addMovie} />
+        <Route
+          path="/movies"
+          element={
+            <MoviesPage
+              movies={movies}
+              onAdd={addMovie}
+              onDelete={deleteMovie}
+              onToggle={toggleMovie}
+            />
+          }
+        />
 
-      <MovieList
-        movies={filteredMovies}
-        onDelete={deleteMovie}
-        onToggle={toggleMovie}
-      />
+        <Route path="/api-movies" element={<ApiMoviesPage />} />
+      </Routes>
     </div>
   );
 }

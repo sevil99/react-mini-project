@@ -1,9 +1,10 @@
 function SearchBar({ search, setSearch }) {
   return (
     <input
-      placeholder="Поиск..."
+      className="search"
+      placeholder="Поиск фильма..."
       value={search}
-      onChange={(e) => setSearch(e.target.value)}
+      onChange={(event) => setSearch(event.target.value)}
     />
   );
 }

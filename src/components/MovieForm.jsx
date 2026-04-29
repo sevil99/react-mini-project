@@ -4,10 +4,12 @@ function MovieForm({ onAdd }) {
   const [title, setTitle] = useState("");
   const [genre, setGenre] = useState("");
 
-  function handleSubmit(e) {
-    e.preventDefault();
+  function handleSubmit(event) {
+    event.preventDefault();
 
-    if (!title) return;
+    if (!title.trim() || !genre.trim()) {
+      return;
+    }
 
     onAdd({
       id: Date.now(),
@@ -21,17 +23,17 @@ function MovieForm({ onAdd }) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="form" onSubmit={handleSubmit}>
       <input
-        placeholder="Название"
+        placeholder="Название фильма"
         value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        onChange={(event) => setTitle(event.target.value)}
       />
 
       <input
         placeholder="Жанр"
         value={genre}
-        onChange={(e) => setGenre(e.target.value)}
+        onChange={(event) => setGenre(event.target.value)}
       />
 
       <button type="submit">Добавить</button>

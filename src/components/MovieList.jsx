@@ -2,14 +2,14 @@ import MovieCard from "./MovieCard";
 
 function MovieList({ movies, onDelete, onToggle }) {
   if (movies.length === 0) {
-    return <p>Список пуст</p>; // условный рендеринг
+    return <p className="message">Фильмы не найдены</p>;
   }
 
   return (
-    <div>
+    <div className="grid">
       {movies.map((movie) => (
         <MovieCard
-          key={movie.id} // key обязателен
+          key={movie.id}
           movie={movie}
           onDelete={onDelete}
           onToggle={onToggle}

@@ -4,9 +4,9 @@ function MovieCard({ movie, onDelete, onToggle }) {
       <h3>{movie.title}</h3>
       <p>Жанр: {movie.genre}</p>
 
-      {/* условный рендеринг */}
       <p>
-        {movie.watched ? "✅ Просмотрен" : "❌ Не просмотрен"}
+        Статус:{" "}
+        {movie.watched ? "Просмотрен" : "Не просмотрен"}
       </p>
 
       <button onClick={() => onToggle(movie.id)}>
